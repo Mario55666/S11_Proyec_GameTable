@@ -131,6 +131,7 @@
     .idc-words{font-weight:600;font-size:clamp(1.05rem,.8rem+1vw,1.6rem);color:var(--color-text);line-height:.95;letter-spacing:-.01em}
     .idc-sub{font-family:'Quicksand',var(--font-body);font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-1);letter-spacing:.01em}
     [data-theme="dark"] .idc-words{color:var(--color-text)}
+    .idc-fallback{font-family:'Quicksand',var(--font-body);font-weight:700;font-size:2rem;color:#1b9dd9;letter-spacing:-.02em}
     .brand-meta{display:flex;flex-direction:column}
     .app-tag{font-size:var(--text-xs);color:var(--color-text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
     /* Pie institucional */
@@ -188,7 +189,7 @@
       <div class="idc-brand">
         <div>
           <div class="idc-logo" aria-label="IDC diseño y comunicación">
-            <img src="Logo_IDC sin fondo.png" alt="" width="170"/>
+            <img src="Logo_IDC sin fondo.png" alt="IDC – Instituto de Educación Superior Público" width="170" onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'idc-fallback',textContent:'idc'}))"/>
           </div>
           <div class="idc-sub">&nbsp;</div>
         </div>
@@ -510,7 +511,7 @@
       <div class="foot-grid">
         <div class="foot-logo">
           <div class="idc-logo" aria-label="IDC diseño y comunicación">
-            <img src="Logo_IDC sin fondo.png" alt="" width="200"/>
+            <img src="Logo_IDC sin fondo.png" alt="IDC – Instituto de Educación Superior Público" width="200" onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'idc-fallback',textContent:'idc'}))"/>
           </div>
 </div>
         <div class="foot-credits">
@@ -891,6 +892,14 @@ D. CASTIGOS Y PREMIOS ligados al ARCO NARRATIVO del cuento: diseña recompensas 
 
 E. CANTIDAD DE PIEZAS NECESARIAS PARA ENSAMBLAR EL JUEGO: entrega un listado detallado (despiece) con la CANTIDAD EXACTA de cada componente físico requerido para armar y jugar (p. ej.: 1 tablero, X losetas, X cartas, X meeples, X dados, X fichas, X hojas, 1 bolsa, etc.), partiendo de los componentes prioritarios (${comps}) y de la mecánica "${primary}". Indica al final el TOTAL de piezas y un rango recomendado de jugadores para ese conteo.
 
+F. DOS ALTERNATIVAS DE PRODUCCIÓN (misma mecánica "${primary}" y misma narrativa, distinto presupuesto). Preséntalas de forma comparativa:
+
+   F.1. VERSIÓN DE ALTO COSTO (edición premium / producción profesional): materiales de gama alta (tablero rígido entelado, meeples de madera o resina, cartas con acabado lino, fichas troqueladas, inserto organizador, caja rígida, etc.), acabados, despiece con cantidades, estimación de rango de costo de producción y para qué contexto conviene (editorial, museo, regalo).
+
+   F.2. VERSIÓN DE BAJO COSTO (económica / prototipo de aula imprimible): materiales accesibles y reutilizables (impresión en papel/cartulina, recortables, fichas de tapas o botones, dados o app de dados, plastificado opcional, "print & play"), despiece con cantidades equivalentes, estimación de rango de costo y cómo replicarla en aula, hogar o biblioteca con bajo presupuesto.
+
+   Cierra F con una tabla/resumen que compare ambas versiones (componentes, durabilidad, costo aproximado y experiencia) manteniendo intactas las reglas y la mecánica.
+
 Luego complementa con:
 1. Justificación de por qué la mecánica ${primary} es la más adecuada para esta historia infantil.
 2. Cómo se traduce la narrativa del cuento en objetivo, turnos, reto y progreso del juego.
@@ -1016,39 +1025,7 @@ FORMATO DE RESPUESTA
           footer{margin-top:28px;border-top:2px solid #ccc;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end}
           .fc b{display:block;font-size:13px} .fc span{font-size:11px;color:#666;display:block}
           @media print{body{padding:0}}
-        
-    /* === Mejoras Fase 2: Neuroeducación + DUA-IDC === */
-    .progress-bar{margin-bottom:var(--space-6)}
-    .progress-track{height:6px;background:var(--color-border);border-radius:var(--radius-full);overflow:hidden}
-    .progress-fill{height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-blue));width:0%;transition:width .4s var(--transition-interactive);border-radius:var(--radius-full)}
-    .progress-steps{display:flex;justify-content:space-between;margin-top:var(--space-3);flex-wrap:wrap;gap:var(--space-2)}
-    .progress-steps .step{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-1) var(--space-2);border-radius:var(--radius-full);background:var(--color-surface);border:1px solid var(--color-border);transition:all .3s}
-    .progress-steps .step.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
-    .progress-steps .step.completed{background:var(--color-success);color:#fff;border-color:var(--color-success)}
-    .pedagogy-hint{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2);padding:var(--space-3);background:color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));border-left:3px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.5}
-    .validation-hint{font-size:var(--text-xs);margin-top:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);line-height:1.5;transition:all .3s}
-    .validation-hint.soft-warn{background:#fff3e0;color:#5d4037;border-left:3px solid #e4a010}
-    .validation-hint.ok{background:#e8f5e9;color:#2e7d32;border-left:3px solid var(--color-success)}
-    .field{margin-bottom:var(--space-3)}
-    .step-nav{display:flex;gap:var(--space-2);margin-bottom:var(--space-4);flex-wrap:wrap}
-    .step-nav button{min-height:36px;padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s}
-    .step-nav button:hover{border-color:var(--color-primary);color:var(--color-primary)}
-    .step-nav button.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
-    .fieldset .fieldset-header{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-3);flex-wrap:wrap}
-    .fieldset .expand-toggle{font-size:var(--text-xs);color:var(--color-primary);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
-    .fieldset .collapsed-content{max-height:0;overflow:hidden;transition:max-height .3s ease}
-    .fieldset .collapsed-content.open{max-height:200px}
-    .emotion-field select, .value-field select{background:color-mix(in srgb, var(--color-gold) 6%, var(--color-surface));border-color:color-mix(in srgb, var(--color-gold) 30%, var(--color-border))}
-    .emotion-field label, .value-field label{color:var(--color-primary)}
-    .word-counter{font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);text-align:right}
-    .strength-meter{display:flex;gap:2px;margin-top:var(--space-2)}
-    .strength-meter span{flex:1;height:4px;background:var(--color-border);border-radius:var(--radius-full);transition:background .3s}
-    .strength-meter span.filled{background:var(--color-success)}
-    .strength-meter span.partial{background:var(--color-gold)}
-    /* Mejorar el focus-visible para accesibilidad */
-    .field:focus-within label{color:var(--color-primary)}
-    
-  </style></head><body>
+        </style></head><body>
         <header>
           <div><span class="mark"><span class="dot"></span>ıdc</span><span class="words">diseño &amp;<br>comunicación</span><div class="sub">Instituto de Educación Superior Público</div></div>
           <div style="text-align:right;font-size:12px;color:#666">Proyecto Ilustrador · 2026<br>Informe de diseño de juego de mesa</div>
@@ -1130,13 +1107,15 @@ FORMATO DE RESPUESTA
     }
 
     function updateProgress(){
-      const fields = ['equipo','titulo','nombre','apellido','edad','duracion','resumen','protagonista','antagonista','objetivoJuego','interaccion','azar','emocion','estiloVisual','competencias','modoUso','funcionalidad','valorSocioemocional'];
+      // Solo se cuentan los campos que el usuario escribe (los desplegables ya traen valor por defecto),
+      // para que un formulario vacío inicie en 0% y refleje el avance real.
+      const fields = ['equipo','titulo','nombre','apellido','resumen','protagonista','antagonista','paleta','recursos','competencias','funcionalidad'];
       let filled=0, total=fields.length;
       fields.forEach(id=>{ const el=document.getElementById(id); if(el && el.value.trim()) filled++; });
       const pct = Math.round((filled/total)*100);
       document.getElementById('progressFill').style.width = pct+'%';
       const steps = document.getElementById('progressSteps').querySelectorAll('.step');
-      const stepThresholds = [4, 8, 12, 15, 18];
+      const stepThresholds = [2, 4, 6, 8, 11];
       steps.forEach((step, i)=>{
         step.classList.remove('active','completed');
         if(pct >= (stepThresholds[i]/total*100)) step.classList.add('completed');
@@ -1155,6 +1134,7 @@ FORMATO DE RESPUESTA
 
     // Refuerzo por error de 5 pasos (DUA) cuando se intenta generar con datos insuficientes
     form.addEventListener('submit', (e) => {
+      e.preventDefault();
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
       data.componentes = getChecked('componentes');
@@ -1220,13 +1200,14 @@ FORMATO DE RESPUESTA
     copyBtn.addEventListener('click', async () => {
       const text = promptOutputEl.textContent.trim();
       if (!text || text === 'Aquí aparecerá el prompt final.') return;
+      const original = '📋 Copiar prompt';
       try {
         await navigator.clipboard.writeText(text);
-        copyBtn.textContent = 'Copiado';
-        setTimeout(() => copyBtn.textContent = 'Copiar', 1400);
+        copyBtn.textContent = '✅ Copiado';
+        setTimeout(() => copyBtn.textContent = original, 1400);
       } catch {
         copyBtn.textContent = 'No disponible';
-        setTimeout(() => copyBtn.textContent = 'Copiar', 1400);
+        setTimeout(() => copyBtn.textContent = original, 1400);
       }
     });
 
