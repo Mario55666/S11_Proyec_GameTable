@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>generador-prompt-mecanicas-cuento-infantil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #ffffff; --color-surface-offset: #efe9df; --color-border: #d7d0c6;
+      --color-text: #2b2720; --color-text-muted: #736d64; --color-text-faint: #a39c92; --color-text-inverse: #f7f6f2;
+      --color-primary: #01696f; --color-primary-hover: #0c4e54; --color-blue: #006494; --color-gold: #d19900; --color-success:#437a22; --color-error:#a12c7b;
+      --radius-sm: 0.375rem; --radius-md: 0.75rem; --radius-lg: 1rem; --radius-xl: 1.5rem; --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px rgba(20,20,20,.06); --shadow-md: 0 10px 30px rgba(20,20,20,.08); --shadow-lg: 0 20px 50px rgba(20,20,20,.12);
+      --font-display: 'Fraunces', Georgia, serif; --font-body: 'Inter', Arial, sans-serif;
+      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --content-wide: 1240px;
+    }
+    [data-theme="dark"] {
+      --color-bg: #171614; --color-surface: #1d1b19; --color-surface-2: #23211f; --color-surface-offset: #2a2622; --color-border: #403a34;
+      --color-text: #e8e1d8; --color-text-muted: #b9afa3; --color-text-faint: #8b8379; --color-text-inverse: #171614;
+      --color-primary: #67aeb7; --color-primary-hover: #4f98a3; --color-blue: #79abd4; --color-gold:#e4bf61; --color-success:#8bbc65; --color-error:#d780ba;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.24); --shadow-md: 0 10px 30px rgba(0,0,0,.3); --shadow-lg: 0 20px 50px rgba(0,0,0,.4);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:none;text-size-adjust:none;scroll-behavior:smooth}
+    body{min-height:100dvh;line-height:1.6;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:
+      radial-gradient(circle at top left, rgba(1,105,111,.08), transparent 28%),
+      radial-gradient(circle at top right, rgba(209,153,0,.08), transparent 20%),
+      var(--color-bg)}
+    img,svg{display:block;max-width:100%;height:auto}
+    button,input,textarea,select{font:inherit;color:inherit}
+    a{color:inherit}
+    :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:8px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip-link{position:absolute;left:var(--space-4);top:-40px;background:var(--color-primary);color:var(--color-text-inverse);padding:var(--space-2) var(--space-4);border-radius:var(--radius-full);z-index:1000}
+    .skip-link:focus{top:var(--space-4)}
+    .shell{max-width:var(--content-wide);margin:0 auto;padding:var(--space-4)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) 0}
+    .brand{display:flex;align-items:center;gap:var(--space-3)}
+    .logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--color-primary),var(--color-blue));display:grid;place-items:center;color:white;box-shadow:var(--shadow-md)}
+    .brand-title{font-family:var(--font-display);font-size:var(--text-lg);line-height:1.1}
+    .brand-sub{font-size:var(--text-xs);color:var(--color-text-muted)}
+    .theme-toggle{min-width:44px;min-height:44px;border:1px solid rgba(0,0,0,.1);background:var(--color-surface);border-radius:var(--radius-full);padding:var(--space-2);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--space-8);padding:var(--space-8) 0 var(--space-10)}
+    .hero-card,.panel{background:color-mix(in srgb, var(--color-surface) 92%, transparent);border:1px solid color-mix(in srgb, var(--color-text) 12%, transparent);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);backdrop-filter: blur(8px)}
+    .hero-copy{padding:var(--space-8)}
+    .eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);background:color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));color:var(--color-primary);font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    h1{font-family:var(--font-display);font-size:var(--text-2xl);line-height:1.03;margin-top:var(--space-4);max-width:14ch}
+    .hero p{margin-top:var(--space-4);max-width:62ch;color:var(--color-text-muted)}
+    .pill-row{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-6)}
+    .pill{padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);background:var(--color-surface-offset);font-size:var(--text-xs);color:var(--color-text-muted)}
+    .hero-side{padding:var(--space-6);display:grid;gap:var(--space-4);align-content:start}
+    .mini-map{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)}
+    .node{padding:var(--space-4);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);border-radius:var(--radius-lg)}
+    .node strong{display:block;font-size:var(--text-sm)}
+    .node span{font-size:var(--text-xs);color:var(--color-text-muted)}
+    .main-grid{display:grid;grid-template-columns: minmax(320px, 1.1fr) minmax(320px, .9fr);gap:var(--space-8);align-items:start}
+    .panel{padding:var(--space-6)}
+    .section-title{font-family:var(--font-display);font-size:var(--text-xl);line-height:1.1;margin-bottom:var(--space-2)}
+    .section-lead{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-6)}
+    form{display:grid;gap:var(--space-6)}
+    .fieldset{display:grid;gap:var(--space-4);padding:var(--space-5);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);border-radius:var(--radius-lg)}
+    .fieldset legend{padding:0 var(--space-2);font-weight:700;color:var(--color-primary)}
+    .grid-2,.grid-3{display:grid;gap:var(--space-4)}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .field{display:grid;gap:var(--space-2)}
+    label{font-size:var(--text-sm);font-weight:600}
+    .hint{font-size:var(--text-xs);color:var(--color-text-muted)}
+    input[type="text"], input[type="number"], select, textarea{
+      width:100%;padding:0.9rem 1rem;border-radius:var(--radius-md);border:1px solid color-mix(in srgb, var(--color-text) 16%, transparent);background:var(--color-surface);min-height:48px
+    }
+    textarea{min-height:126px;resize:vertical}
+    .choice-group{display:grid;gap:var(--space-3)}
+    .check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+    .choice{display:flex;gap:var(--space-3);align-items:flex-start;padding:var(--space-3);background:var(--color-surface);border:1px solid color-mix(in srgb, var(--color-text) 12%, transparent);border-radius:var(--radius-md)}
+    .choice input{margin-top:.25rem}
+    .choice span{display:block;font-size:var(--text-xs);color:var(--color-text-muted)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:48px;padding:0.9rem 1.1rem;border-radius:var(--radius-full);border:1px solid transparent;font-weight:700;text-decoration:none;transition:all var(--transition-interactive)}
+    .btn-primary{background:var(--color-primary);color:var(--color-text-inverse)}
+    .btn-primary:hover{background:var(--color-primary-hover)}
+    .btn-secondary{background:var(--color-surface-offset);border-color:color-mix(in srgb, var(--color-text) 12%, transparent)}
+    .btn-ghost{background:transparent;border-color:color-mix(in srgb, var(--color-text) 16%, transparent)}
+    .sticky{position:sticky;top:var(--space-4)}
+    .result-box{background:linear-gradient(180deg, color-mix(in srgb, var(--color-primary) 7%, var(--color-surface)), var(--color-surface));border:1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);border-radius:var(--radius-xl);padding:var(--space-6);display:grid;gap:var(--space-5)}
+    .result-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+    .meta-card{padding:var(--space-4);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-text) 8%, transparent);border-radius:var(--radius-lg)}
+    .meta-card h3{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:var(--space-2)}
+    .meta-card p{font-size:var(--text-sm)}
+    .mechanic-card{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-primary) 12%, transparent)}
+    .mechanic-card a{color:var(--color-primary);font-weight:700;text-decoration:none}
+    .prompt{white-space:pre-wrap;background:#111; color:#f7f7f7; border-radius:var(--radius-lg); padding:var(--space-5); font-size:0.95rem; max-height:560px; overflow:auto}
+    .chips{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+    .chip{padding:0.45rem 0.7rem;border-radius:var(--radius-full);background:color-mix(in srgb, var(--color-gold) 18%, var(--color-surface));font-size:var(--text-xs)}
+    .project-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3)}
+    .ps-item{padding:var(--space-3) var(--space-4);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-primary) 14%, transparent);border-radius:var(--radius-lg)}
+    .ps-item span{display:block;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted)}
+    .ps-item strong{display:block;font-size:var(--text-sm);margin-top:var(--space-1);line-height:1.25}
+    .preview-card{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-blue) 16%, transparent)}
+    .preview-links{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
+    .preview-links a{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);font-size:var(--text-sm);font-weight:600;color:var(--color-blue);text-decoration:none;transition:all var(--transition-interactive)}
+    .preview-links a:hover{border-color:var(--color-blue);transform:translateX(2px)}
+    .preview-links a span{font-weight:400;color:var(--color-text-muted);font-size:var(--text-xs)}
+    @media (max-width:720px){.project-strip{grid-template-columns:1fr}}
+    .foot{padding:var(--space-10) 0 var(--space-6);font-size:var(--text-xs);color:var(--color-text-muted)}
+    @media (max-width: 1024px){
+      .hero,.main-grid{grid-template-columns:1fr}
+      .sticky{position:static}
+    }
+    @media (max-width: 720px){
+      .grid-2,.grid-3,.check-grid,.result-meta{grid-template-columns:1fr}
+      .hero-copy,.hero-side,.panel{padding:var(--space-5)}
+      h1{max-width:unset}
+    }
+    /* Logotipo institucional IDC */
+    .idc-brand{display:flex;align-items:center;gap:var(--space-4);text-decoration:none}
+    .idc-logo{display:flex;align-items:baseline;gap:var(--space-3);font-family:'Quicksand',var(--font-body);line-height:1}
+    .idc-mark{position:relative;font-weight:700;font-size:clamp(2.2rem,1.6rem+2.5vw,3.4rem);color:#1b9dd9;letter-spacing:-.02em}
+    .idc-dot{position:absolute;top:-.34em;left:.02em;width:.34em;height:.34em;border-radius:var(--radius-full);background:#f5a623}
+    .idc-words{font-weight:600;font-size:clamp(1.05rem,.8rem+1vw,1.6rem);color:var(--color-text);line-height:.95;letter-spacing:-.01em}
+    .idc-sub{font-family:'Quicksand',var(--font-body);font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-1);letter-spacing:.01em}
+    [data-theme="dark"] .idc-words{color:var(--color-text)}
+    .brand-meta{display:flex;flex-direction:column}
+    .app-tag{font-size:var(--text-xs);color:var(--color-text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+    /* Pie institucional */
+    .foot-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-6);padding-top:var(--space-6);border-top:1px solid var(--color-border)}
+    .foot-credits{display:grid;gap:2px}
+    .foot-credits .fc-name{font-weight:700;color:var(--color-text);font-size:var(--text-sm)}
+    .foot-credits .fc-line{font-size:var(--text-xs);color:var(--color-text-muted)}
+    .foot-logo .idc-mark{font-size:2rem}
+    /* Estilos de impresión / informe PDF */
+    @media print{
+      body{background:#fff}
+      .topbar .theme-toggle,.toolbar,.skip-link,.hero-side,.export-bar{display:none !important}
+      .panel,.result-box,.hero-card{box-shadow:none;border-color:#ccc}
+      .prompt{background:#fff;color:#000;border:1px solid #ccc;max-height:none}
+      .sticky{position:static}
+    }
+  
+    /* === Mejoras Fase 2: Neuroeducación + DUA-IDC === */
+    .progress-bar{margin-bottom:var(--space-6)}
+    .progress-track{height:6px;background:var(--color-border);border-radius:var(--radius-full);overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-blue));width:0%;transition:width .4s var(--transition-interactive);border-radius:var(--radius-full)}
+    .progress-steps{display:flex;justify-content:space-between;margin-top:var(--space-3);flex-wrap:wrap;gap:var(--space-2)}
+    .progress-steps .step{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-1) var(--space-2);border-radius:var(--radius-full);background:var(--color-surface);border:1px solid var(--color-border);transition:all .3s}
+    .progress-steps .step.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+    .progress-steps .step.completed{background:var(--color-success);color:#fff;border-color:var(--color-success)}
+    .pedagogy-hint{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2);padding:var(--space-3);background:color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));border-left:3px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.5}
+    .validation-hint{font-size:var(--text-xs);margin-top:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);line-height:1.5;transition:all .3s}
+    .validation-hint.soft-warn{background:#fff3e0;color:#5d4037;border-left:3px solid #e4a010}
+    .validation-hint.ok{background:#e8f5e9;color:#2e7d32;border-left:3px solid var(--color-success)}
+    .field{margin-bottom:var(--space-3)}
+    .step-nav{display:flex;gap:var(--space-2);margin-bottom:var(--space-4);flex-wrap:wrap}
+    .step-nav button{min-height:36px;padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s}
+    .step-nav button:hover{border-color:var(--color-primary);color:var(--color-primary)}
+    .step-nav button.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+    .fieldset .fieldset-header{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-3);flex-wrap:wrap}
+    .fieldset .expand-toggle{font-size:var(--text-xs);color:var(--color-primary);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+    .fieldset .collapsed-content{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .fieldset .collapsed-content.open{max-height:200px}
+    .emotion-field select, .value-field select{background:color-mix(in srgb, var(--color-gold) 6%, var(--color-surface));border-color:color-mix(in srgb, var(--color-gold) 30%, var(--color-border))}
+    .emotion-field label, .value-field label{color:var(--color-primary)}
+    .word-counter{font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);text-align:right}
+    .strength-meter{display:flex;gap:2px;margin-top:var(--space-2)}
+    .strength-meter span{flex:1;height:4px;background:var(--color-border);border-radius:var(--radius-full);transition:background .3s}
+    .strength-meter span.filled{background:var(--color-success)}
+    .strength-meter span.partial{background:var(--color-gold)}
+    /* Mejorar el focus-visible para accesibilidad */
+    .field:focus-within label{color:var(--color-primary)}
+    
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div class="shell">
+    <header class="topbar" aria-label="Cabecera principal">
+      <div class="idc-brand">
+        <div>
+          <div class="idc-logo" aria-label="IDC diseño y comunicación">
+            <img src="Logo_IDC sin fondo.png" alt="" width="170"/>
+          </div>
+          <div class="idc-sub">&nbsp;</div>
+        </div>
+        <div class="brand-meta">
+          <div class="brand-title">Generador de Prompt Ludonarrativo</div>
+          <div class="app-tag">Proyecto Ilustrador</div>
+        </div>
+      </div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema"></button>
+    </header>
+
+    <main id="contenido">
+      <section class="hero">
+        <div class="hero-card hero-copy">
+          <span class="eyebrow">Diseño de juegos + narrativa infantil</span>
+          <h1>Identifica la mecánica ideal a partir de un cuento infantil.</h1>
+          <p>Este formulario construye un prompt detallado para IA o briefing de diseño. Integra historia, conflicto, ritmo de juego, estilo visual, materiales físicos y funcionalidad pedagógica para sugerir la mecánica más pertinente y enlazarla a su referencia visual en BoardGameGeek.</p>
+          <div class="pill-row" aria-label="Atributos clave">
+            <span class="pill">Prompt listo para copiar</span>
+            <span class="pill">3 títulos sugeridos</span>
+            <span class="pill">Previsualización con enlaces</span>
+            <span class="pill">Reglas según mecánica</span>
+            <span class="pill">Premios y castigos narrativos</span>
+          </div>
+        </div>
+        <aside class="hero-card hero-side" aria-label="Mapa conceptual">
+          <div>
+            <h2 class="section-title" style="font-size:var(--text-lg)">Mapa rápido</h2>
+            <p class="section-lead" style="margin-bottom:0">La herramienta conecta la estructura del cuento con tensiones lúdicas, recursos físicos y estilo visual.</p>
+          </div>
+          <div class="mini-map">
+            <div class="node"><strong>Cuento</strong><span>personajes, conflicto, objetivo</span></div>
+            <div class="node"><strong>Tensión</strong><span>riesgo, cooperación, deducción, carrera</span></div>
+            <div class="node"><strong>Mecánica</strong><span>selección principal + secundarias</span></div>
+            <div class="node"><strong>Implementación</strong><span>componentes y experiencia visual</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="main-grid">
+        <div class="panel">
+          <h2 class="section-title">Formulario</h2>
+          <p class="section-lead">Completa la historia y el sistema generará un prompt de diseño centrado en la mecánica más apropiada.</p>
+          
+          <div class="progress-bar" aria-label="Progreso del formulario">
+            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+            <div class="progress-steps" id="progressSteps">
+              <span class="step active" data-step="1">1. Identificación</span>
+              <span class="step" data-step="2">2. Historia</span>
+              <span class="step" data-step="3">3. Experiencia</span>
+              <span class="step" data-step="4">4. Materiales</span>
+              <span class="step" data-step="5">5. Pedagogía</span>
+            </div>
+          </div>
+    
+          <form id="promptForm">
+            <fieldset class="fieldset">
+              <legend>1. Identificación del proyecto</legend>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="equipo">Nombre del equipo de trabajo</label>
+                  <input id="equipo" name="equipo" type="text" placeholder="Ej.: Equipo Luciérnagas / Mesa 4" autocomplete="off">
+                </div>
+                <div class="field">
+                  <label for="titulo">Nombre del proyecto o cuento infantil</label>
+                  <input id="titulo" name="titulo" type="text" placeholder="Ej.: La pequeña zorra y el bosque de luces" required>
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="nombre">Nombre del responsable</label>
+                  <input id="nombre" name="nombre" type="text" placeholder="Ej.: Mariana" autocomplete="given-name">
+                </div>
+                <div class="field">
+                  <label for="apellido">Apellido del responsable</label>
+                  <input id="apellido" name="apellido" type="text" placeholder="Ej.: Quiroz" autocomplete="family-name">
+                </div>
+              </div>
+              <p class="hint">Estudiante individual responsable de la adaptación del cuento infantil a juego de mesa.</p>
+              <p class="pedagogy-hint">🧠 <strong>Neuroeducación:</strong> El registro de identidad activa la red de reconocimiento y responsabilidad. Según Mora (2018), la individualidad y la pertenencia son clave para la motivación cerebral.</p>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend>2. Historia base</legend>
+              <div class="grid-2">
+                <div class="field emotion-field">
+                  <label for="emocion">Emoción central del cuento</label>
+                  <select id="emocion" name="emocion">
+                    <option>Alegría / Celebración</option>
+                    <option>Ternura / Calidez</option>
+                    <option>Miedo / Suspenso</option>
+                    <option selected>Asombro / Maravilla</option>
+                    <option>Coraje / Valentía</option>
+                    <option>Tristeza / Melancolía</option>
+                    <option>Humor / Diversión</option>
+                  </select>
+                  <p class="pedagogy-hint">💡 <strong>Neuroeducación (Mora):</strong> La emoción es el vehículo del aprendizaje. Identificar la emoción central permite que la mecánica del juego resuene con la experiencia afectiva del niño.</p>
+                </div>
+                <div class="field">
+                  <label for="edad">Edad del público</label>
+                  <select id="edad" name="edad">
+                    <option>3–5 años</option>
+                    <option selected>6–8 años</option>
+                    <option>9–12 años</option>
+                    <option>Familiar multiedad</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="duracion">Duración deseada</label>
+                  <select id="duracion" name="duracion">
+                    <option>10–15 min</option>
+                    <option selected>15–25 min</option>
+                    <option>25–40 min</option>
+                    <option>40–60 min</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="resumen">Resumen del cuento infantil</label>
+                <textarea id="resumen" name="resumen" placeholder="Describe personajes, objetivo, conflicto, escenarios y desenlace deseado."></textarea>
+                  <div id="resumenHint" class="validation-hint" style="display:none"></div>
+                  <div class="word-counter" id="wordCounter">0 palabras</div>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="protagonista">Protagonista o grupo principal</label>
+                  <input id="protagonista" name="protagonista" type="text" placeholder="Animales del bosque, niños exploradores, monstruos amables...">
+                </div>
+                <div class="field">
+                  <label for="antagonista">Antagonista, obstáculo o reto</label>
+                  <input id="antagonista" name="antagonista" type="text" placeholder="Tormenta, bruja, noche, miedo, rival, laberinto...">
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend>3. Tipo de experiencia</legend>
+              <div class="grid-3">
+                <div class="field">
+                  <label for="objetivoJuego">Objetivo del juego</label>
+                  <select id="objetivoJuego" name="objetivoJuego">
+                    <option>Superar una misión</option>
+                    <option>Acumular puntos o tesoros</option>
+                    <option>Resolver un misterio</option>
+                    <option>Llegar primero a una meta</option>
+                    <option>Construir algo colectivamente</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="interaccion">Interacción entre jugadores</label>
+                  <select id="interaccion" name="interaccion">
+                    <option>Cooperativa</option>
+                    <option>Competitiva suave</option>
+                    <option>Competitiva directa</option>
+                    <option>Semicooperativa</option>
+                    <option>Social / deducción</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="azar">Presencia del azar</label>
+                  <select id="azar" name="azar">
+                    <option>Baja</option>
+                    <option selected>Media</option>
+                    <option>Alta</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label>Tensión narrativa predominante</label>
+                <div class="check-grid" role="group" aria-label="Tensión narrativa">
+                  <label class="choice"><input type="radio" name="tension" value="escasez y bloqueo" checked><div><strong>Escasez y bloqueo</strong><span>pocas acciones, espacios limitados, decisiones tácticas</span></div></label>
+                  <label class="choice"><input type="radio" name="tension" value="crecimiento progresivo"><div><strong>Crecimiento progresivo</strong><span>mejorar recursos, cartas o habilidades con el tiempo</span></div></label>
+                  <label class="choice"><input type="radio" name="tension" value="riesgo y recompensa"><div><strong>Riesgo y recompensa</strong><span>seguir o detenerse antes de perderlo todo</span></div></label>
+                  <label class="choice"><input type="radio" name="tension" value="misterio y deducción"><div><strong>Misterio y deducción</strong><span>identidades ocultas, pistas, sospechas, faroleo</span></div></label>
+                  <label class="choice"><input type="radio" name="tension" value="optimización por turnos"><div><strong>Optimización por turnos</strong><span>puntos de acción o secuencias precisas</span></div></label>
+                  <label class="choice"><input type="radio" name="tension" value="construcción espacial"><div><strong>Construcción espacial</strong><span>crear mapas, rutas, mosaicos o territorios</span></div></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend>4. Estilo visual y materiales</legend>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="estiloVisual">Estilo visual deseado</label>
+                  <select id="estiloVisual" name="estiloVisual">
+                    <option>Acuarela suave y poética</option>
+                    <option>Ilustración editorial contemporánea</option>
+                    <option>Collage artesanal</option>
+                    <option>Cartoon expresivo</option>
+                    <option>Geométrico y minimalista</option>
+                    <option>Fantasía luminosa</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="paleta">Paleta dominante</label>
+                  <input id="paleta" name="paleta" type="text" placeholder="Ej.: verdes musgo, dorados suaves y azul noche">
+                </div>
+              </div>
+              <div class="field">
+                <label for="recursos">Recursos físicos disponibles o deseados</label>
+                <textarea id="recursos" name="recursos" placeholder="Ej.: tablero plegable, meeples de madera, cartas, dados grandes, fichas, losetas, bolsa textil, hojas borrables..."></textarea>
+                <p class="hint">Incluye materiales reales de producción o prototipado.</p>
+              <p class="pedagogy-hint">🎨 <strong>Diseño inclusivo:</strong> Los materiales táctiles y visuales activan redes sensoriales diferentes. Para público infantil, prioriza texturas, contrastes y piezas manipulables que no requieran lectura.</p>
+              </div>
+              <div class="field">
+                <label>Componentes prioritarios</label>
+                <div class="check-grid">
+                  <label class="choice"><input type="checkbox" name="componentes" value="meeples"><div><strong>Meeples</strong><span>personajes, trabajadores o marcadores</span></div></label>
+                  <label class="choice"><input type="checkbox" name="componentes" value="cartas"><div><strong>Cartas</strong><span>eventos, personajes, recursos o poderes</span></div></label>
+                  <label class="choice"><input type="checkbox" name="componentes" value="dados"><div><strong>Dados</strong><span>azar, restricciones o activación</span></div></label>
+                  <label class="choice"><input type="checkbox" name="componentes" value="losetas"><div><strong>Losetas</strong><span>tablero modular, caminos o escenarios</span></div></label>
+                  <label class="choice"><input type="checkbox" name="componentes" value="tablero"><div><strong>Tablero</strong><span>mapa central o zonas de acción</span></div></label>
+                  <label class="choice"><input type="checkbox" name="componentes" value="hojas"><div><strong>Hojas / pizarras</strong><span>anotar, dibujar o tachar resultados</span></div></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend>5. Intención pedagógica y funcional</legend>
+              <div class="grid-2">
+                <div class="field value-field">
+                  <label for="valorSocioemocional">Valor o habilidad socioemocional a desarrollar</label>
+                  <select id="valorSocioemocional" name="valorSocioemocional">
+                    <option selected>Empatía / Ayuda mutua</option>
+                    <option>Paciencia / Turnos</option>
+                    <option>Coraje / Perseverancia</option>
+                    <option>Cooperación / Trabajo en equipo</option>
+                    <option>Respeto / Inclusión</option>
+                    <option>Honestidad / Confianza</option>
+                    <option>Creatividad / Imaginación</option>
+                  </select>
+                  <p class="pedagogy-hint">❤️ <strong>Neuroética:</strong> Mora (2018) subraya que la neuroeducación debe incluir la educación en valores. Conectar el juego con un valor socioemocional potencia la red afectiva y da sentido profundo a la experiencia lúdica.</p>
+                </div>
+                <div class="field">
+                  <label for="competencias">Competencias o aprendizajes</label>
+                  <input id="competencias" name="competencias" type="text" placeholder="Cooperación, conteo, memoria, toma de decisiones, lectura de imágenes...">
+                </div>
+                <div class="field">
+                  <label for="modoUso">Modo de implementación</label>
+                  <select id="modoUso" name="modoUso">
+                    <option>Aula</option>
+                    <option>Hogar</option>
+                    <option>Biblioteca / mediación lectora</option>
+                    <option>Taller de diseño</option>
+                    <option>Museo / activación cultural</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="funcionalidad">Funcionalidad esperada del juego</label>
+                <textarea id="funcionalidad" name="funcionalidad" placeholder="Explica qué debe hacer el juego: acompañar la lectura, reforzar comprensión, detonar diálogo, desarrollar estrategia, fomentar turnos, etc."></textarea>
+              </div>
+              <div class="field">
+                <label for="mecanicasSugeridas">Si ya tienes mecánicas candidatas, escríbelas aquí (opcional)</label>
+                <input id="mecanicasSugeridas" name="mecanicasSugeridas" type="text" placeholder="Ej.: cooperativo, colocación de losetas, memoria, pick-up and deliver">
+              </div>
+            </fieldset>
+
+            <div class="toolbar">
+              <button class="btn btn-primary" type="submit">Generar prompt</button>
+              <button class="btn btn-secondary" type="button" id="fillExample">Cargar ejemplo</button>
+              <button class="btn btn-ghost" type="reset" id="resetForm">Limpiar</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="sticky">
+          <div class="result-box">
+            <div>
+              <h2 class="section-title">Resultado</h2>
+              <p class="section-lead">El sistema propone una mecánica principal, muestra su referencia visual en BoardGameGeek y redacta un prompt detallado de diseño.</p>
+            </div>
+            <div class="project-strip" id="projectStrip" hidden>
+              <div class="ps-item"><span>Equipo</span><strong id="psEquipo">—</strong></div>
+              <div class="ps-item"><span>Proyecto / cuento</span><strong id="psTitulo">—</strong></div>
+              <div class="ps-item"><span>Responsable</span><strong id="psResponsable">—</strong></div>
+            </div>
+            <div class="result-meta">
+              <div class="meta-card">
+                <h3>Mecánica principal</h3>
+                <p id="primaryMechanic">Aún no generada</p>
+              </div>
+              <div class="meta-card">
+                <h3>Lógica de selección</h3>
+                <p id="selectionLogic">Completa el formulario para ver la correspondencia entre historia y sistema de juego.</p>
+              </div>
+            </div>
+            <div class="mechanic-card" id="mechanicCard">
+              <strong>Referencia visual BGG</strong>
+              <p class="hint" style="margin-top:var(--space-2)">Se mostrará aquí la ficha más pertinente.</p>
+            </div>
+            <div class="preview-card" id="previewCard" hidden>
+              <strong>Previsualización del juego (enlaces web)</strong>
+              <p class="hint" style="margin-top:var(--space-2)">Explora ejemplos reales de la mecánica y referencias visuales para imaginar el tablero antes de prototipar.</p>
+              <div class="preview-links" id="previewLinks"></div>
+            </div>
+            <div>
+              <h3 style="font-size:var(--text-lg);margin-bottom:var(--space-3)">Mecánicas complementarias</h3>
+              <div class="chips" id="secondaryMechanics"><span class="chip">Se sugerirán al generar</span></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3);flex-wrap:wrap">
+                <h3 style="font-size:var(--text-lg)">Prompt generado</h3>
+              </div>
+              <div class="toolbar export-bar" style="margin-bottom:var(--space-3)">
+                <button class="btn btn-primary" type="button" id="copyPrompt">📋 Copiar prompt</button>
+                <button class="btn btn-secondary" type="button" id="exportPdf">📄 Informe PDF</button>
+                <button class="btn btn-secondary" type="button" id="exportCsv">📊 Informe CSV</button>
+              </div>
+              <div class="prompt" id="promptOutput">Aquí aparecerá el prompt final.</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-grid">
+        <div class="foot-logo">
+          <div class="idc-logo" aria-label="IDC diseño y comunicación">
+            <img src="Logo_IDC sin fondo.png" alt="" width="200"/>
+          </div>
+</div>
+        <div class="foot-credits">
+          <span class="fc-name">Mg. Mario Quiroz Martinez</span>
+          <span class="fc-line">Unidad didáctica: Proyecto Ilustrador</span>
+          <span class="fc-line">Año 2026</span>
+        </div>
+      </div>
+      <p style="margin-top:var(--space-4)">Las referencias visuales de mecánicas provienen del sistema de páginas de BoardGameGeek para mecanismos, ampliamente utilizado como índice y ejemplo visual de diseño de juegos.</p>
+    </footer>
+  </div>
+
+  <script>
+    const mechanics = {
+      'Colocación de trabajadores': {
+        key: 'worker placement',
+        desc: 'Asignar meeples a espacios limitados para activar acciones y bloquear opciones rivales.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2082/worker-placement',
+        visual: 'Tablero con zonas de acción, iconografía clara, meeples de personaje y espacios escasos.',
+        materials: 'meeples, tablero con acciones, fichas de recurso, marcadores de turno',
+        when: ['escasez y bloqueo', 'competitiva suave', 'competitiva directa']
+      },
+      'Construcción de mazos': {
+        key: 'deck building',
+        desc: 'Empezar con cartas simples y mejorar el mazo mediante compras o adquisiciones.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2664/deck-bag-and-pool-building',
+        visual: 'Cartas con progresión visual, recursos de compra, símbolos acumulativos.',
+        materials: 'mazo inicial, mercado de cartas, cartas de mejora, tokens de compra',
+        when: ['crecimiento progresivo']
+      },
+      'Exprime tu suerte': {
+        key: 'push your luck',
+        desc: 'Seguir arriesgando para obtener más beneficios o detenerse para conservar lo ganado.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2661/push-your-luck',
+        visual: 'Trayectoria ascendente, pistas de tensión, colores de alerta y recompensa.',
+        materials: 'dados o cartas de riesgo, marcadores de progreso, fichas de premio',
+        when: ['riesgo y recompensa', 'Alta']
+      },
+      'Roles / Traidor oculto': {
+        key: 'hidden roles',
+        desc: 'Identidades secretas y objetivos ocultos; se juega con deducción, sospecha y faroleo.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2018/hidden-roles',
+        visual: 'Cartas secretas, pistas ambiguas, personajes expresivos y doble lectura gráfica.',
+        materials: 'cartas de rol, fichas de voto, ayudas de jugador, tablero social opcional',
+        when: ['misterio y deducción', 'Social / deducción']
+      },
+      'Puntos de acción': {
+        key: 'action points',
+        desc: 'Cada turno ofrece una cantidad limitada de puntos para gastar en diferentes acciones.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2001/action-points',
+        visual: 'Rueda de acciones, iconos de coste y secuencias cortas y claras.',
+        materials: 'tablero, marcadores de acción, fichas de coste, ayudas visuales',
+        when: ['optimización por turnos']
+      },
+      'Colocación de losetas': {
+        key: 'tile placement',
+        desc: 'El tablero se construye o transforma con piezas geométricas durante la partida.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2019/tile-placement',
+        visual: 'Mapa modular, piezas ilustradas, caminos o escenas encajables.',
+        materials: 'losetas, tablero base opcional, fichas de posición, bolsa o reserva',
+        when: ['construcción espacial', 'Construir algo colectivamente']
+      },
+      'Juego cooperativo': {
+        key: 'cooperative game',
+        desc: 'Todos los jugadores se enfrentan al sistema y ganan o pierden juntos.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2023/cooperative-game',
+        visual: 'Amenaza común, tablero compartido, iconos de ayuda mutua y metas colectivas.',
+        materials: 'tablero común, cartas de evento, fichas de amenaza, marcadores de equipo',
+        when: ['Cooperativa', 'Superar una misión']
+      },
+      'Roll and write': {
+        key: 'roll and write',
+        desc: 'Se lanzan dados y cada jugador anota o dibuja resultados en su hoja personal.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2964/roll-and-write',
+        visual: 'Hojas ilustradas, cuadrículas amigables, dados grandes y patrones claros.',
+        materials: 'dados, hojas reutilizables o pizarras, plumones borrables',
+        when: ['Alta', 'hojas']
+      },
+      'Toma eso': {
+        key: 'take that',
+        desc: 'Interacción negativa directa: quitar, bloquear o perjudicar a rivales.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2686/take-that',
+        visual: 'Cartas de travesura, humor visual, efectos inmediatos y contraste expresivo.',
+        materials: 'cartas de efecto, fichas de estado, mini tablero opcional',
+        when: ['Competitiva directa']
+      },
+      'Mayorías / Influencia': {
+        key: 'area majority',
+        desc: 'Controlar zonas con mayor presencia o influencia que los rivales.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2080/area-majority-influence',
+        visual: 'Mapa por regiones, zonas delimitadas, marcadores de presencia.',
+        materials: 'tablero de áreas, peones, marcadores de control',
+        when: ['construcción espacial']
+      },
+      'Drafting': {
+        key: 'card drafting',
+        desc: 'Elegir cartas de un conjunto compartido o rotativo para formar la mano.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2041/card-drafting',
+        visual: 'Manos de cartas, selección por turnos, iconos de combinación.',
+        materials: 'cartas, ayudas visuales, cartas de objetivo',
+        when: ['crecimiento progresivo']
+      },
+      'Bazas': {
+        key: 'trick taking',
+        desc: 'Cada jugador juega una carta y la mejor combinación gana la baza.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2009/trick-taking',
+        visual: 'Cartas con jerarquía clara, símbolos grandes y rondas cerradas.',
+        materials: 'baraja principal, indicadores de baza, cartas de palo o triunfo',
+        when: ['competitiva suave']
+      },
+      'Creación de rutas / redes': {
+        key: 'route building',
+        desc: 'Conectar puntos del mapa con caminos, vías o redes para completar trayectos.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2081/network-and-route-building',
+        visual: 'Mapa conectado, nodos, trayectorias visibles y recompensas por enlace.',
+        materials: 'tablero mapa, fichas de ruta, cartas de destino, peones',
+        when: ['construcción espacial', 'Llegar primero a una meta']
+      },
+      'Poderes variables': {
+        key: 'variable player powers',
+        desc: 'Cada jugador tiene reglas o habilidades asimétricas.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2015/variable-player-powers',
+        visual: 'Tableros de personaje, iconografía individual, identidad marcada.',
+        materials: 'tableros de personaje, cartas de habilidad, fichas especiales',
+        when: ['Semicooperativa']
+      },
+      'Subastas / Apuestas': {
+        key: 'auction bidding',
+        desc: 'Los jugadores pujan con recursos para conseguir beneficios.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2012/auction-bidding',
+        visual: 'Lotes visibles, marcadores de puja, ritmo de tensión breve.',
+        materials: 'tokens de valor, cartas/lotes, tablero de puja',
+        when: ['Competitiva directa']
+      },
+      'Gestión de mano': {
+        key: 'hand management',
+        desc: 'Optimizar cuándo y cómo usar las cartas disponibles.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2040/hand-management',
+        visual: 'Cartas con multiuso, decisiones de timing, iconografía legible.',
+        materials: 'cartas, descarte, ayudas de combinación',
+        when: ['optimización por turnos']
+      },
+      'Colección de conjuntos': {
+        key: 'set collection',
+        desc: 'Reunir familias, colores o grupos de piezas para puntuar.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2004/set-collection',
+        visual: 'Series visuales, familias de personajes, repetición de símbolos.',
+        materials: 'cartas o fichas coleccionables, tablero de progreso opcional',
+        when: ['crecimiento progresivo']
+      },
+      'Programación de acciones': {
+        key: 'programmed movement',
+        desc: 'Planificar acciones en secreto que se resolverán después.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2020/programmed-movement',
+        visual: 'Secuencias, flechas, anticipación gráfica, iconos paso a paso.',
+        materials: 'cartas/comandos, tablero o ruta, ayudas de orden',
+        when: ['optimización por turnos']
+      },
+      'Movimiento por áreas / grid': {
+        key: 'grid movement',
+        desc: 'Moverse entre casillas, hexágonos o zonas conectadas.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2676/grid-movement',
+        visual: 'Rejillas, hexágonos o rutas espaciales fáciles de seguir.',
+        materials: 'tablero, peones, dados o puntos de movimiento',
+        when: ['Llegar primero a una meta']
+      },
+      'Memorización': {
+        key: 'memory',
+        desc: 'Recordar posiciones, pistas o información oculta.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2048/memory',
+        visual: 'Cartas boca abajo, patrones, repetición visual y sorpresa.',
+        materials: 'cartas/losetas ocultas, fichas de pista',
+        when: ['Resolver un misterio']
+      },
+      'Actuar / Cantar / Contar historias': {
+        key: 'acting singing storytelling',
+        desc: 'Interpretar, narrar o dramatizar como parte del juego.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2008/acting-singing-storytelling',
+        visual: 'Tarjetas narrativas, escenas expresivas, humor y oralidad.',
+        materials: 'cartas de consigna, reloj opcional, fichas de turno',
+        when: ['Social / deducción']
+      },
+      'Compra-venta / Especulación': {
+        key: 'commodity speculation',
+        desc: 'Comprar bienes para venderlos según cambie su valor.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2031/commodity-speculation',
+        visual: 'Mercado cambiante, iconografía económica, pistas de valor.',
+        materials: 'cartas o fichas de recursos, tablero de mercado, monedas',
+        when: ['Competitiva suave']
+      },
+      'Coger y llevar': {
+        key: 'pick-up and deliver',
+        desc: 'Recoger recursos en un lugar y entregarlos en otro.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2027/pick-up-and-deliver',
+        visual: 'Mapa con origen-destino, recorridos y entregas visuales.',
+        materials: 'tablero mapa, fichas de carga, peones de transporte',
+        when: ['Llegar primero a una meta', 'Construir algo colectivamente']
+      },
+      'Legacy': {
+        key: 'legacy game',
+        desc: 'El juego se transforma de manera permanente entre partidas.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2854/legacy-game',
+        visual: 'Sobres, pegatinas, revelaciones y memoria material del relato.',
+        materials: 'sobres, pegatinas, cartas bloqueadas, diario de campaña',
+        when: ['Superar una misión']
+      },
+      'Tiempo real': {
+        key: 'real-time',
+        desc: 'Todos actúan a la vez bajo presión temporal.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2088/real-time',
+        visual: 'Relojes, urgencia, gestos rápidos, señales de simultaneidad.',
+        materials: 'temporizador, fichas rápidas, cartas de acción',
+        when: ['Alta']
+      },
+      'Deducción': {
+        key: 'deduction',
+        desc: 'Resolver un misterio lógico con información limitada.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2037/deduction',
+        visual: 'Pistas, pistas visuales, tablero de sospechosos, investigación.',
+        materials: 'cartas de pista, tablero de investigación, hojas de notas',
+        when: ['misterio y deducción', 'Resolver un misterio']
+      },
+      'Gestión de recursos': {
+        key: 'resource management',
+        desc: 'Obtener, transformar y gastar recursos para progresar.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2060/resource-management',
+        visual: 'materiales diferenciados, ciclos de conversión, economía clara.',
+        materials: 'cubos o fichas de recurso, tablero de conversión, cartas de coste',
+        when: ['crecimiento progresivo']
+      },
+      'Negociación': {
+        key: 'negotiation',
+        desc: 'Hacer tratos, alianzas o promesas para avanzar.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2013/negotiation',
+        visual: 'intercambio visible, cartas de trato, expresividad social.',
+        materials: 'cartas de trato, recursos intercambiables, ayudas de acuerdos',
+        when: ['Social / deducción']
+      },
+      'I cut, you choose': {
+        key: 'i cut you choose',
+        desc: 'Un jugador divide y el otro elige primero.',
+        url: 'https://boardgamegeek.com/boardgamemechanic/2874/i-cut-you-choose',
+        visual: 'repartos visuales, simetría, lotes claros y comparables.',
+        materials: 'fichas o cartas en lotes, bandejas de selección',
+        when: ['Competitiva suave']
+      }
+    };
+
+    const form = document.getElementById('promptForm');
+    const primaryMechanicEl = document.getElementById('primaryMechanic');
+    const selectionLogicEl = document.getElementById('selectionLogic');
+    const mechanicCardEl = document.getElementById('mechanicCard');
+    const secondaryMechanicsEl = document.getElementById('secondaryMechanics');
+    const promptOutputEl = document.getElementById('promptOutput');
+    const copyBtn = document.getElementById('copyPrompt');
+    const projectStripEl = document.getElementById('projectStrip');
+    const psEquipoEl = document.getElementById('psEquipo');
+    const psTituloEl = document.getElementById('psTitulo');
+    const psResponsableEl = document.getElementById('psResponsable');
+    const previewCardEl = document.getElementById('previewCard');
+    const previewLinksEl = document.getElementById('previewLinks');
+    const exportPdfBtn = document.getElementById('exportPdf');
+    const exportCsvBtn = document.getElementById('exportCsv');
+
+    // Estado del último informe generado (para exportar a PDF / CSV)
+    let lastReport = null;
+      updateProgress();
+
+    function getChecked(name){
+      return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(el => el.value);
+    }
+
+    function inferMechanic(data){
+      const signals = [];
+      let pick = 'Juego cooperativo';
+      if (data.interaccion === 'Cooperativa') { pick = 'Juego cooperativo'; signals.push('La interacción cooperativa dirige el sistema hacia una meta compartida.'); }
+      if (data.tension === 'misterio y deducción' || data.objetivoJuego === 'Resolver un misterio') { pick = data.interaccion === 'Social / deducción' ? 'Roles / Traidor oculto' : 'Deducción'; signals.push('La historia se apoya en secretos, pistas o sospechas.'); }
+      else if (data.tension === 'escasez y bloqueo') { pick = 'Colocación de trabajadores'; signals.push('El conflicto principal aparece como acceso limitado a acciones o lugares.'); }
+      else if (data.tension === 'crecimiento progresivo') { pick = data.componentes.includes('cartas') ? 'Construcción de mazos' : 'Gestión de recursos'; signals.push('La progresión se beneficia de un sistema acumulativo de mejora.'); }
+      else if (data.tension === 'riesgo y recompensa') { pick = 'Exprime tu suerte'; signals.push('La emoción de “seguir o parar” es central en el relato.'); }
+      else if (data.tension === 'optimización por turnos') { pick = 'Puntos de acción'; signals.push('La historia pide secuencias de acciones cortas y medibles por turno.'); }
+      else if (data.tension === 'construcción espacial') { pick = data.componentes.includes('losetas') ? 'Colocación de losetas' : 'Creación de rutas / redes'; signals.push('El espacio narrativo se expresa mejor al construir caminos, mapas o territorios.'); }
+
+      if (data.componentes.includes('hojas') && data.azar === 'Alta') { pick = 'Roll and write'; signals.push('La combinación de azar alto y soporte anotable encaja con roll and write.'); }
+      if (data.interaccion === 'Competitiva directa' && /travesura|robar|molestar|castigo|maldad|enemigo/i.test(data.resumen + ' ' + data.antagonista)) { pick = 'Toma eso'; signals.push('El conflicto directo y las travesuras favorecen una mecánica de ataque ligero.'); }
+      if (/secreto|disfraz|traidor|lobo|impostor/i.test(data.resumen)) { pick = 'Roles / Traidor oculto'; signals.push('La presencia de identidades ocultas refuerza el juego de roles secretos.'); }
+      if (/viaje|camino|ruta|entrega|llevar|recoger|mensaj/i.test(data.resumen)) { pick = /entrega|recoger|llevar/.test(data.resumen) ? 'Coger y llevar' : 'Creación de rutas / redes'; signals.push('El relato se organiza como desplazamiento entre puntos del mapa.'); }
+      return { pick, signals };
+    }
+
+    function suggestSecondary(primary, data){
+      const secondaries = [];
+      if (primary !== 'Juego cooperativo' && data.interaccion === 'Cooperativa') secondaries.push('Juego cooperativo');
+      if (!secondaries.includes('Poderes variables') && /personaje|animal|equipo|hermano|hada/i.test(data.protagonista)) secondaries.push('Poderes variables');
+      if (data.componentes.includes('cartas') && primary !== 'Gestión de mano') secondaries.push('Gestión de mano');
+      if (data.componentes.includes('losetas') && primary !== 'Colocación de losetas') secondaries.push('Colocación de losetas');
+      if (data.componentes.includes('dados') && primary !== 'Exprime tu suerte' && data.azar !== 'Baja') secondaries.push('Exprime tu suerte');
+      if (/memoria|recordar|olvido|pista/i.test(data.resumen + ' ' + data.funcionalidad)) secondaries.push('Memorización');
+      if (/coleccionar|reunir|familia|grupo|pareja/i.test(data.resumen)) secondaries.push('Colección de conjuntos');
+      if (/narrar|actuar|cantar|cuento/i.test(data.funcionalidad)) secondaries.push('Actuar / Cantar / Contar historias');
+      return [...new Set(secondaries)].filter(item => item !== primary).slice(0,4);
+    }
+
+    function buildPreviewLinks(data, primaryData){
+      const q = s => encodeURIComponent(s);
+      const titulo = data.titulo || 'cuento infantil';
+      const key = primaryData.key;
+      return [
+        { label: `Mecánica “${key}” en BoardGameGeek`, hint: 'ficha oficial de la mecánica', url: primaryData.url },
+        { label: 'Juegos que usan esta mecánica', hint: 'búsqueda en BoardGameGeek', url: `https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q=${q(key)}` },
+        { label: 'Previsualización visual del tablero', hint: 'imágenes de referencia', url: `https://www.google.com/search?tbm=isch&q=${q(key + ' board game')}` },
+        { label: `Referencias del cuento “${titulo}”`, hint: 'ilustración e inspiración', url: `https://www.google.com/search?q=${q(titulo + ' cuento infantil ilustración')}` }
+      ];
+    }
+
+    function buildPrompt(data, primary, secondaries){
+      const primaryData = mechanics[primary];
+      const secondariesText = secondaries.length ? secondaries.join(', ') : 'sin mecánicas secundarias obligatorias';
+      const comps = data.componentes.length ? data.componentes.join(', ') : 'componentes a definir según viabilidad';
+      const responsable = [data.nombre, data.apellido].filter(Boolean).join(' ') || 'No especificado';
+      const previewLinks = buildPreviewLinks(data, primaryData);
+      return `Actúa como diseñador experto de juegos de mesa infantiles, mediación lectora y diseño editorial lúdico. Analiza el siguiente cuento/proyecto y desarrolla una propuesta de juego físico centrada en la mecánica principal "${primary}"${secondaries.length ? `, complementada con ${secondariesText}` : ''}.
+
+DATOS DEL PROYECTO
+- Equipo de trabajo: ${data.equipo || 'No especificado'}
+- Nombre del proyecto / cuento infantil: ${data.titulo}
+- Responsable de la adaptación (estudiante): ${responsable}
+- Público: ${data.edad}
+- Duración objetivo: ${data.duracion}
+- Resumen del cuento: ${data.resumen || 'No especificado'}
+- Emoción central del cuento: ${data.emocion || 'No especificada'}
+- Protagonista(s): ${data.protagonista || 'No especificado'}
+- Antagonista / obstáculo: ${data.antagonista || 'No especificado'}
+- Objetivo del juego: ${data.objetivoJuego}
+- Interacción: ${data.interaccion}
+- Presencia del azar: ${data.azar}
+- Tensión narrativa dominante: ${data.tension}
+- Estilo visual: ${data.estiloVisual}
+- Paleta sugerida: ${data.paleta || 'A definir'}
+- Recursos físicos disponibles: ${data.recursos || 'A definir'}
+- Componentes prioritarios: ${comps}
+- Competencias a desarrollar: ${data.competencias || 'A definir'}
+- Valor o habilidad socioemocional: ${data.valorSocioemocional || 'A definir'}
+- Modo de implementación: ${data.modoUso}
+- Funcionalidad esperada: ${data.funcionalidad || 'A definir'}
+- Mecánicas ya sugeridas por el solicitante: ${data.mecanicasSugeridas || 'Ninguna'}
+
+REFERENCIA DE LA MECÁNICA PRINCIPAL
+- Mecánica principal: ${primary}
+- Descripción breve: ${primaryData.desc}
+- Referencia visual BoardGameGeek: ${primaryData.url}
+
+ENLACES DE PREVISUALIZACIÓN (úsalos para describir cómo se vería y se jugaría)
+${previewLinks.map(l => `- ${l.label}: ${l.url}`).join('\n')}
+
+PRINCIPIOS DE NEUROEDUCACIÓN A CONSIDERAR (Mora, 2018)
+1. La emoción central identificada (${data.emocion || 'no especificada'}) debe ser el eje conductor de la mecánica: cada turno, regla y componente debe reforzar esa experiencia emocional.
+2. El juego debe adaptarse al desarrollo cerebral del rango de edad ${data.edad}: prioriza sensorialidad y motoridad para 3-5 años; cooperación y reglas simples concretas para 6-8 años; estrategia leve y autonomía para 9-12 años.
+3. El valor socioemocional (${data.valorSocioemocional || 'no especificado'}) no debe ser un add-on: debe traducirse en reglas, premios y dinámica de turno (neuroética lúdica).
+4. Curiosidad y atención: el setup debe generar asombro en los primeros 60 segundos; el ritmo debe respetar los tiempos de atención infantil (≈ duración de un episodio narrativo: 3-5 min por fase del juego).
+5. Repetición y equivocación: el juego debe permitir practicar estrategias sin castigo severo; los errores son oportunidad de ajuste (refuerzo positivo), no penalización brusca.
+
+TAREA
+Redacta una propuesta clara y estructurada que incluya, en este orden:
+
+A. TRES TÍTULOS POSIBLES para el juego de mesa, evocadores y adecuados a la edad, derivados del cuento "${data.titulo}". Para cada uno añade una línea que explique su gancho.
+
+B. PREVISUALIZACIÓN DEL JUEGO: a partir de los ENLACES DE PREVISUALIZACIÓN anteriores, describe cómo lucirá el juego sobre la mesa (tablero, fichas, cartas, disposición y "primera impresión visual"). Cita explícitamente los enlaces como referencia de inspiración visual y de mecánica.
+
+C. REGLAS DEL JUEGO DE MESA según la mecánica seleccionada "${primary}". Redacta un reglamento jugable y claro que contenga:
+   - Objetivo y condición de victoria.
+   - Preparación de la partida (setup).
+   - Estructura del turno paso a paso, coherente con la mecánica "${primary}".
+   - Final de la partida y desempate.
+   Usa lenguaje sencillo y directo apropiado para ${data.edad}.
+
+D. CASTIGOS Y PREMIOS ligados al ARCO NARRATIVO del cuento: diseña recompensas (premios) y penalizaciones (castigos) que NO sean genéricas, sino que reflejen momentos, personajes y giros de la historia "${data.titulo}" (protagonista: ${data.protagonista || 'sin definir'}; antagonista/obstáculo: ${data.antagonista || 'sin definir'}). Indica qué evento del cuento dispara cada premio o castigo y su efecto mecánico en el juego.
+
+E. CANTIDAD DE PIEZAS NECESARIAS PARA ENSAMBLAR EL JUEGO: entrega un listado detallado (despiece) con la CANTIDAD EXACTA de cada componente físico requerido para armar y jugar (p. ej.: 1 tablero, X losetas, X cartas, X meeples, X dados, X fichas, X hojas, 1 bolsa, etc.), partiendo de los componentes prioritarios (${comps}) y de la mecánica "${primary}". Indica al final el TOTAL de piezas y un rango recomendado de jugadores para ese conteo.
+
+Luego complementa con:
+1. Justificación de por qué la mecánica ${primary} es la más adecuada para esta historia infantil.
+2. Cómo se traduce la narrativa del cuento en objetivo, turnos, reto y progreso del juego.
+3. Descripción del estilo visual recomendado: dirección de arte, tratamiento de personajes, escenarios, iconografía, color, textura y tono emocional.
+4. Lista de recursos físicos para implementarlo: tablero, cartas, meeples, dados, losetas, fichas, hojas, bolsa, sobres u otros, especificando para qué sirve cada componente.
+5. Funcionalidad pedagógica o didáctica: qué habilidades desarrolla y cómo acompaña la lectura o comprensión del cuento.
+6. Flujo básico de una partida: preparación, turno, condición de avance, cierre y victoria.
+7. Recomendaciones de seguridad, ergonomía y legibilidad para público infantil.
+8. Variantes posibles según aula, biblioteca o uso familiar.
+9. Si la mecánica principal no fuera suficiente, explica cómo integrar de forma ligera estas mecánicas secundarias: ${secondariesText}.
+10. Cierra con un concepto de prototipo en formato breve: “componentes + dinámica central + experiencia emocional”.
+
+FORMATO DE RESPUESTA
+- Usa subtítulos claros.
+- Escribe en español.
+- Piensa como diseñador de juego, ilustrador editorial y mediador de lectura al mismo tiempo.
+- Evita estadísticas; prioriza descripción cualitativa, visual y funcional.`;
+    }
+
+    function render(data){
+      const {pick, signals} = inferMechanic(data);
+      const secondary = suggestSecondary(pick, data);
+      const mechanic = mechanics[pick];
+      primaryMechanicEl.textContent = pick;
+      selectionLogicEl.textContent = signals.join(' ') || 'Se eligió por afinidad general entre narrativa, interacción y soporte físico.';
+      mechanicCardEl.innerHTML = `<strong>${pick}</strong><p style="margin-top:var(--space-2)">${mechanic.desc}</p><p class="hint" style="margin-top:var(--space-2)"><strong>Referencia visual en BGG:</strong> <a href="${mechanic.url}" target="_blank" rel="noopener noreferrer">${mechanic.url}</a></p><p class="hint" style="margin-top:var(--space-2)"><strong>Pista visual:</strong> ${mechanic.visual}</p><p class="hint" style="margin-top:var(--space-1)"><strong>Materiales afines:</strong> ${mechanic.materials}</p>`;
+      secondaryMechanicsEl.innerHTML = secondary.length ? secondary.map(item => `<span class="chip">${item}</span>`).join('') : '<span class="chip">No obligatorias</span>';
+
+      const responsable = [data.nombre, data.apellido].filter(Boolean).join(' ') || '—';
+      psEquipoEl.textContent = data.equipo || '—';
+      psTituloEl.textContent = data.titulo || '—';
+      psResponsableEl.textContent = responsable;
+      projectStripEl.hidden = false;
+
+      const links = buildPreviewLinks(data, mechanic);
+      previewLinksEl.innerHTML = links.map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}<span>${l.hint}</span></a>`).join('');
+      previewCardEl.hidden = false;
+
+      const promptText = buildPrompt(data, pick, secondary);
+      promptOutputEl.textContent = promptText;
+
+      lastReport = { data, pick, secondary, mechanic, responsable, links, prompt: promptText };
+    }
+
+    function estimarPiezas(data){
+      const mapa = {meeples:'8 meeples', cartas:'40 cartas', dados:'4 dados', losetas:'24 losetas', tablero:'1 tablero', hojas:'6 hojas / pizarras'};
+      const sel = (data.componentes || []).map(c => mapa[c] || c);
+      return sel.length ? sel.join('; ') : 'a definir según el despiece sugerido por la IA';
+    }
+
+    function downloadBlob(content, filename, type){
+      const blob = new Blob([content], {type});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    function exportCSV(){
+      if (!lastReport) { alert('Primero genera el prompt para crear el informe.'); return; }
+      const { data, pick, secondary, mechanic, responsable, links } = lastReport;
+      const esc = v => '"' + String(v ?? '').replace(/"/g, '""').replace(/\r?\n/g, ' ') + '"';
+      const rows = [
+        ['Campo', 'Valor'],
+        ['Institución', 'IDC - Instituto de Educación Superior Público'],
+        ['Unidad didáctica', 'Proyecto Ilustrador'],
+        ['Docente', 'Mg. Mario Quiroz Martinez'],
+        ['Año', '2026'],
+        ['Equipo de trabajo', data.equipo],
+        ['Proyecto / cuento infantil', data.titulo],
+        ['Responsable de la adaptación', responsable],
+        ['Público', data.edad],
+        ['Duración', data.duracion],
+        ['Resumen', data.resumen],
+        ['Protagonista', data.protagonista],
+        ['Antagonista / obstáculo', data.antagonista],
+        ['Objetivo del juego', data.objetivoJuego],
+        ['Interacción', data.interaccion],
+        ['Azar', data.azar],
+        ['Tensión narrativa', data.tension],
+        ['Estilo visual', data.estiloVisual],
+        ['Paleta', data.paleta],
+        ['Recursos físicos', data.recursos],
+        ['Componentes prioritarios', (data.componentes || []).join(', ')],
+        ['Piezas estimadas (despiece base)', estimarPiezas(data)],
+        ['Competencias', data.competencias],
+        ['Modo de implementación', data.modoUso],
+        ['Funcionalidad esperada', data.funcionalidad],
+        ['Mecánica principal', pick],
+        ['Descripción mecánica', mechanic.desc],
+        ['Referencia BGG', mechanic.url],
+        ['Mecánicas complementarias', secondary.join(', ')],
+        ['Enlaces de previsualización', links.map(l => l.label + ': ' + l.url).join(' | ')]
+      ];
+      const csv = '﻿' + rows.map(r => r.map(esc).join(',')).join('\r\n');
+      const slug = (data.titulo || 'juego').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      downloadBlob(csv, `informe-${slug}.csv`, 'text/csv;charset=utf-8;');
+    }
+
+    function exportPDF(){
+      if (!lastReport) { alert('Primero genera el prompt para crear el informe.'); return; }
+      const { data, pick, secondary, mechanic, responsable, links, prompt } = lastReport;
+      const esc = s => String(s ?? '—').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const row = (k, v) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`;
+      const win = window.open('', '_blank');
+      if (!win) { alert('Habilita las ventanas emergentes para generar el PDF.'); return; }
+      const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+        <title>Informe - ${esc(data.titulo)}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+        <style>
+          *{box-sizing:border-box} body{font-family:'Inter',Arial,sans-serif;color:#2b2720;margin:0;padding:32px;line-height:1.5}
+          .lg{font-family:'Quicksand',sans-serif} .mark{font-weight:700;font-size:38px;color:#1b9dd9;position:relative;display:inline-block}
+          .mark .dot{position:absolute;top:-12px;left:1px;width:13px;height:13px;border-radius:50%;background:#f5a623}
+          .words{font-family:'Quicksand',sans-serif;font-weight:600;font-size:18px;color:#58595b;line-height:1.05;display:inline-block;vertical-align:bottom;margin-left:8px}
+          .sub{font-family:'Quicksand',sans-serif;color:#8a8a8a;font-size:12px}
+          header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #1b9dd9;padding-bottom:16px;margin-bottom:20px}
+          h1{font-size:22px;margin:18px 0 4px} h2{font-size:15px;color:#01696f;margin:22px 0 8px;border-bottom:1px solid #ddd;padding-bottom:4px}
+          table{width:100%;border-collapse:collapse;font-size:12.5px} th,td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #eee}
+          th{width:30%;color:#555;font-weight:600} .chips span{display:inline-block;background:#f0ece4;border-radius:20px;padding:3px 10px;margin:2px;font-size:11px}
+          pre{white-space:pre-wrap;background:#f7f6f2;border:1px solid #ddd;border-radius:8px;padding:14px;font-size:11px;font-family:ui-monospace,monospace}
+          .links a{display:block;font-size:12px;color:#006494;margin:3px 0}
+          footer{margin-top:28px;border-top:2px solid #ccc;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end}
+          .fc b{display:block;font-size:13px} .fc span{font-size:11px;color:#666;display:block}
+          @media print{body{padding:0}}
+        
+    /* === Mejoras Fase 2: Neuroeducación + DUA-IDC === */
+    .progress-bar{margin-bottom:var(--space-6)}
+    .progress-track{height:6px;background:var(--color-border);border-radius:var(--radius-full);overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-blue));width:0%;transition:width .4s var(--transition-interactive);border-radius:var(--radius-full)}
+    .progress-steps{display:flex;justify-content:space-between;margin-top:var(--space-3);flex-wrap:wrap;gap:var(--space-2)}
+    .progress-steps .step{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-1) var(--space-2);border-radius:var(--radius-full);background:var(--color-surface);border:1px solid var(--color-border);transition:all .3s}
+    .progress-steps .step.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+    .progress-steps .step.completed{background:var(--color-success);color:#fff;border-color:var(--color-success)}
+    .pedagogy-hint{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2);padding:var(--space-3);background:color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));border-left:3px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.5}
+    .validation-hint{font-size:var(--text-xs);margin-top:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);line-height:1.5;transition:all .3s}
+    .validation-hint.soft-warn{background:#fff3e0;color:#5d4037;border-left:3px solid #e4a010}
+    .validation-hint.ok{background:#e8f5e9;color:#2e7d32;border-left:3px solid var(--color-success)}
+    .field{margin-bottom:var(--space-3)}
+    .step-nav{display:flex;gap:var(--space-2);margin-bottom:var(--space-4);flex-wrap:wrap}
+    .step-nav button{min-height:36px;padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all .2s}
+    .step-nav button:hover{border-color:var(--color-primary);color:var(--color-primary)}
+    .step-nav button.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+    .fieldset .fieldset-header{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-3);flex-wrap:wrap}
+    .fieldset .expand-toggle{font-size:var(--text-xs);color:var(--color-primary);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+    .fieldset .collapsed-content{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .fieldset .collapsed-content.open{max-height:200px}
+    .emotion-field select, .value-field select{background:color-mix(in srgb, var(--color-gold) 6%, var(--color-surface));border-color:color-mix(in srgb, var(--color-gold) 30%, var(--color-border))}
+    .emotion-field label, .value-field label{color:var(--color-primary)}
+    .word-counter{font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);text-align:right}
+    .strength-meter{display:flex;gap:2px;margin-top:var(--space-2)}
+    .strength-meter span{flex:1;height:4px;background:var(--color-border);border-radius:var(--radius-full);transition:background .3s}
+    .strength-meter span.filled{background:var(--color-success)}
+    .strength-meter span.partial{background:var(--color-gold)}
+    /* Mejorar el focus-visible para accesibilidad */
+    .field:focus-within label{color:var(--color-primary)}
+    
+  </style></head><body>
+        <header>
+          <div><span class="mark"><span class="dot"></span>ıdc</span><span class="words">diseño &amp;<br>comunicación</span><div class="sub">Instituto de Educación Superior Público</div></div>
+          <div style="text-align:right;font-size:12px;color:#666">Proyecto Ilustrador · 2026<br>Informe de diseño de juego de mesa</div>
+        </header>
+        <h1>${esc(data.titulo || 'Proyecto sin título')}</h1>
+        <div class="sub" style="font-size:13px;color:#555">Equipo: ${esc(data.equipo || '—')} · Responsable: ${esc(responsable)}</div>
+
+        <h2>1. Identificación y ficha del proyecto</h2>
+        <table>
+          ${row('Equipo de trabajo', data.equipo)}
+          ${row('Proyecto / cuento infantil', data.titulo)}
+          ${row('Responsable de la adaptación', responsable)}
+          ${row('Público', data.edad)}${row('Duración', data.duracion)}
+          ${row('Objetivo del juego', data.objetivoJuego)}${row('Interacción', data.interaccion)}
+          ${row('Azar', data.azar)}${row('Tensión narrativa', data.tension)}
+        </table>
+
+        <h2>2. Historia base</h2>
+        <table>
+          ${row('Resumen', data.resumen)}${row('Protagonista', data.protagonista)}${row('Antagonista / obstáculo', data.antagonista)}
+        </table>
+
+        <h2>3. Mecánica de juego</h2>
+        <table>
+          ${row('Mecánica principal', pick)}${row('Descripción', mechanic.desc)}${row('Referencia BGG', mechanic.url)}
+          ${row('Estilo visual', data.estiloVisual)}${row('Paleta', data.paleta)}
+        </table>
+        <div class="chips" style="margin-top:8px"><b style="font-size:12px">Complementarias:</b> ${secondary.length ? secondary.map(s=>`<span>${esc(s)}</span>`).join('') : '<span>No obligatorias</span>'}</div>
+
+        <h2>4. Componentes y cantidad de piezas (despiece base)</h2>
+        <table>
+          ${row('Componentes prioritarios', (data.componentes||[]).join(', '))}
+          ${row('Piezas estimadas para ensamblar', estimarPiezas(data))}
+        </table>
+        <p style="font-size:11px;color:#777">El despiece definitivo con la cantidad exacta de piezas se detalla en la respuesta generada por la IA a partir de este prompt.</p>
+
+        <h2>5. Enlaces de previsualización</h2>
+        <div class="links">${links.map(l=>`<a href="${l.url}">${esc(l.label)} — ${esc(l.url)}</a>`).join('')}</div>
+
+        <h2>6. Prompt generado</h2>
+        <pre>${esc(prompt)}</pre>
+
+        <footer>
+          <div class="fc"><b>Mg. Mario Quiroz Martinez</b><span>Unidad didáctica: Proyecto Ilustrador</span><span>Año 2026</span></div>
+          <div style="text-align:right"><span class="mark" style="font-size:26px"><span class="dot" style="width:9px;height:9px;top:-8px"></span>ıdc</span></div>
+        </footer>
+        <script>window.onload=function(){setTimeout(function(){window.print();},400);};<\/script>
+        </body></html>`;
+      win.document.write(html);
+      win.document.close();
+    }
+
+    
+    // === Validación suave en tiempo real (Neuroeducación + DUA) ===
+    function showSoftHint(elId, html, type='warn'){
+      const el = document.getElementById(elId);
+      if(!el) return;
+      el.style.display = 'block';
+      el.className = 'validation-hint ' + (type==='ok' ? 'ok' : 'soft-warn');
+      el.innerHTML = html;
+    }
+    function hideSoftHint(elId){ const el=document.getElementById(elId); if(el) el.style.display='none'; }
+
+    const resumenEl = document.getElementById('resumen');
+    if(resumenEl){
+      resumenEl.addEventListener('input', () => {
+        const words = resumenEl.value.trim().split(/\s+/).filter(w => w.length>0);
+        const count = words.length;
+        document.getElementById('wordCounter').textContent = count + ' palabra' + (count!==1?'s':'');
+        if(count < 15){
+          showSoftHint('resumenHint', '📖 <strong>Llevas ' + count + ' palabras.</strong> Un buen resumen narrativo necesita al menos 15 palabras para que la IA capture personajes, conflicto y escenario. <em>Tip: describe el inicio, el problema y el desenlace.</em>', 'warn');
+        } else if (count < 30){
+          showSoftHint('resumenHint', '⏳ <strong>Llevas ' + count + ' palabras.</strong> Ya tienes una base narrativa. Amplía con escenarios, aliados y giros para enriquecer la propuesta de mecánica.', 'warn');
+        } else {
+          showSoftHint('resumenHint', '✅ <strong>' + count + ' palabras.</strong> ¡Buena base narrativa! La mecánica inferida será más precisa.', 'ok');
+        }
+        updateProgress();
+      });
+    }
+
+    function updateProgress(){
+      const fields = ['equipo','titulo','nombre','apellido','edad','duracion','resumen','protagonista','antagonista','objetivoJuego','interaccion','azar','emocion','estiloVisual','competencias','modoUso','funcionalidad','valorSocioemocional'];
+      let filled=0, total=fields.length;
+      fields.forEach(id=>{ const el=document.getElementById(id); if(el && el.value.trim()) filled++; });
+      const pct = Math.round((filled/total)*100);
+      document.getElementById('progressFill').style.width = pct+'%';
+      const steps = document.getElementById('progressSteps').querySelectorAll('.step');
+      const stepThresholds = [4, 8, 12, 15, 18];
+      steps.forEach((step, i)=>{
+        step.classList.remove('active','completed');
+        if(pct >= (stepThresholds[i]/total*100)) step.classList.add('completed');
+      });
+      // Activar el paso actual según último campo interactuado (simplificado: último no completado)
+      let activeIdx = 0;
+      for(let i=0;i<stepThresholds.length;i++){ if(filled < stepThresholds[i]){ activeIdx=i; break; } else if(i===stepThresholds.length-1) activeIdx=i; }
+      steps[activeIdx].classList.add('active');
+    }
+
+    // Validación en tiempo real para campos obligatorios
+    ['titulo','edad','resumen','objetivoJuego'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){ el.addEventListener('input', updateProgress); el.addEventListener('change', updateProgress); }
+    });
+
+    // Refuerzo por error de 5 pasos (DUA) cuando se intenta generar con datos insuficientes
+    form.addEventListener('submit', (e) => {
+      const fd = new FormData(form);
+      const data = Object.fromEntries(fd.entries());
+      data.componentes = getChecked('componentes');
+      data.tension = getChecked('tension')[0] || 'escasez y bloqueo';
+      const resumenWords = (data.resumen || '').trim().split(/\s+/).filter(w=>w.length>0).length;
+      if(resumenWords < 15){
+        e.preventDefault();
+        const hint = document.getElementById('resumenHint');
+        if(hint){
+          hint.style.display='block';
+          hint.className='validation-hint soft-warn';
+          hint.innerHTML = '🧠 <strong>Refuerzo pedagógico:</strong> El resumen narrativo es muy breve. La neuroeducación nos enseña que sin una historia emocionalmente rica, la mecánica del juego carecerá de sentido. <br><em>Paso 1 de 5:</em> Describe el personaje principal. <br><em>Paso 2:</em> ¿Qué quiere lograr? <br><em>Paso 3:</em> ¿Qué o quién se lo impide? <br><em>Paso 4:</em> ¿Quién le ayuda? <br><em>Paso 5:</em> ¿Cómo termina la historia? <br><strong>Añade al menos 15 palabras para continuar.</strong>';
+        }
+        resumenEl && resumenEl.focus();
+        return;
+      }
+      render(data);
+    });
+    
+
+    document.getElementById('fillExample').addEventListener('click', () => {
+      document.getElementById('equipo').value = 'Equipo Luciérnagas';
+      document.getElementById('nombre').value = 'Mariana';
+      document.getElementById('apellido').value = 'Quiroz';
+      document.getElementById('titulo').value = 'La liebre que llevaba estrellas';
+      document.getElementById('edad').value = '6–8 años';
+      document.getElementById('duracion').value = '15–25 min';
+      document.getElementById('resumen').value = 'Una pequeña liebre debe recorrer el bosque nocturno para recoger estrellas caídas y llevarlas de regreso al cielo antes del amanecer. En el camino encuentra búhos, puentes frágiles y amigos que la ayudan.';
+      document.getElementById('protagonista').value = 'Liebre soñadora y sus amigos del bosque';
+      document.getElementById('antagonista').value = 'La noche que avanza y los obstáculos del bosque';
+      document.getElementById('objetivoJuego').value = 'Superar una misión';
+      document.getElementById('interaccion').value = 'Cooperativa';
+      document.getElementById('azar').value = 'Media';
+      document.querySelector('input[name="tension"][value="construcción espacial"]').checked = true;
+      document.getElementById('estiloVisual').value = 'Fantasía luminosa';
+      document.getElementById('paleta').value = 'azul noche, dorado cálido, verde bosque y blanco estelar';
+      document.getElementById('recursos').value = 'tablero modular, losetas de sendero, fichas de estrella de madera, cartas de ayuda, bolsa textil y meeples animales';
+      document.querySelectorAll('input[name="componentes"]').forEach(el => el.checked = ['meeples','cartas','losetas','tablero'].includes(el.value));
+      document.getElementById('competencias').value = 'cooperación, secuenciación, orientación espacial y comprensión narrativa';
+      document.getElementById('modoUso').value = 'Biblioteca / mediación lectora';
+      document.getElementById('funcionalidad').value = 'Acompañar la lectura del cuento, promover conversación sobre ayuda mutua y transformar los episodios narrativos en decisiones de juego accesibles.';
+      document.getElementById('mecanicasSugeridas').value = 'cooperativo, colocación de losetas, pick-up and deliver';
+      form.requestSubmit();
+      updateProgress();
+    });
+
+    document.getElementById('resetForm').addEventListener('click', () => {
+      primaryMechanicEl.textContent = 'Aún no generada';
+      selectionLogicEl.textContent = 'Completa el formulario para ver la correspondencia entre historia y sistema de juego.';
+      mechanicCardEl.innerHTML = '<strong>Referencia visual BGG</strong><p class="hint" style="margin-top:var(--space-2)">Se mostrará aquí la ficha más pertinente.</p>';
+      secondaryMechanicsEl.innerHTML = '<span class="chip">Se sugerirán al generar</span>';
+      promptOutputEl.textContent = 'Aquí aparecerá el prompt final.';
+      projectStripEl.hidden = true;
+      previewCardEl.hidden = true;
+      previewLinksEl.innerHTML = '';
+      lastReport = null;
+      updateProgress();
+    });
+
+    exportPdfBtn.addEventListener('click', exportPDF);
+    exportCsvBtn.addEventListener('click', exportCSV);
+
+    copyBtn.addEventListener('click', async () => {
+      const text = promptOutputEl.textContent.trim();
+      if (!text || text === 'Aquí aparecerá el prompt final.') return;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = 'Copiado';
+        setTimeout(() => copyBtn.textContent = 'Copiar', 1400);
+      } catch {
+        copyBtn.textContent = 'No disponible';
+        setTimeout(() => copyBtn.textContent = 'Copiar', 1400);
+      }
+    });
+
+    (function(){
+      const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+      let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+      r.setAttribute('data-theme',d);
+      const draw=()=>{t.innerHTML=d==='dark'?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';t.setAttribute('aria-label','Cambiar a modo '+(d==='dark'?'claro':'oscuro'));};
+      draw();
+      t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);draw();});
+    })();
+  </script>
+</body>
+</html>
